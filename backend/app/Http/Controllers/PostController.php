@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use Illuminate\Http\Request; 
+use Illuminate\Http\Request;
 use App\Http\Requests\UpdatePostRequest;
 
 class PostController extends Controller
@@ -13,7 +13,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return Post::latest()->get();
+        return Post::with('user:id,name')->latest()->get();
     }
 
     /**
@@ -46,7 +46,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return $post;
+        return $post->load('user:id,name');
     }
 
     /**
